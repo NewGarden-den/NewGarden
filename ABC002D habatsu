@@ -1,0 +1,23 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+  
+int N,M,ans=0,a,b;
+bool fri[15][15]={false};  
+
+int main() {
+  cin >> N >> M;
+  for (int i = 0; i < M; i++) {cin >> a >> b; fri[a-1][b-1]=fri[b-1][a-1]=true;}
+  for (int S=1<<N; S!=0; S--) {
+    int t = bitset<32>(S).count();
+    if(t<=ans) continue;	//ans ika pass
+    bool ok = true;
+    for(int i=0; i<N; i++){
+      for(int j=0; j<i; j++){
+        if(S>>i & S>>j & 1 && !fri[i][j]){ok = false;}        
+      }
+    }
+    if(ok) ans = t;
+  }
+  cout << ans << endl;
+}
